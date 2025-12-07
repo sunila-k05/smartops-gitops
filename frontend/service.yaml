@@ -1,0 +1,14 @@
+cat <<EOF > frontend/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartops-frontend
+  namespace: smartops
+spec:
+  selector:
+    app: smartops-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+EOF

@@ -1,0 +1,29 @@
+cat <<EOF > ingress/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: smartops-ingress
+  namespace: smartops
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: smartops.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smartops-frontend
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: smartops-backend
+                port:
+                  number: 5000
+EOF
+

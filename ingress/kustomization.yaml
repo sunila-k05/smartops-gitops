@@ -1,0 +1,4 @@
+cat <<EOF > ingress/kustomization.yaml
+resources:
+  - ingress.yaml
+EOF

@@ -1,0 +1,23 @@
+cat <<EOF > apps/smartops-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: smartops
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: 'https://github.com/sunila-k05/smartops-gitops'
+    targetRevision: main
+    path: .
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: smartops
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+EOF

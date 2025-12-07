@@ -1,0 +1,14 @@
+cat <<EOF > backend/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartops-backend
+  namespace: smartops
+spec:
+  selector:
+    app: smartops-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: ClusterIP
+EOF

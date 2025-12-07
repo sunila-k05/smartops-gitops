@@ -1,0 +1,23 @@
+cat <<EOF > frontend/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smartops-frontend
+  namespace: smartops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: smartops-frontend
+  template:
+    metadata:
+      labels:
+        app: smartops-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: sunilak05/smartops-frontend:latest
+          ports:
+            - containerPort: 80
+EOF
+
