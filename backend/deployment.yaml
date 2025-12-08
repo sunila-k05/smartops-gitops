@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: sunilak05/smartops-backend:latest
+          image: sunilak05/smartops-backend:19
           ports:
             - containerPort: 5000
           env:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: sunilak05/smartops-frontend:latest
+          image: sunilak05/smartops-frontend:19
           ports:
             - containerPort: 80
 EOF
