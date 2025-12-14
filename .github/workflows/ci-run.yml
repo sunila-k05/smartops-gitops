@@ -1,0 +1,65 @@
+name: SmartOps CI Run
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # ---------- BACKEND ----------
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          else
+            echo "No backend package.json found"
+          fi
+
+      - name: Run backend (if start script exists)
+        working-directory: backend
+        run: |
+          if npm run | grep -q "start"; then
+            npm run start &
+            sleep 5
+          else
+            echo "No backend start script"
+          fi
+
+      # ---------- FRONTEND ----------
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          else
+            echo "No frontend package.json found"
+          fi
+
+      - name: Build frontend
+        working-directory: frontend
+        run: |
+          if npm run | grep -q "build"; then
+            npm run build
+          else
+            echo "No frontend build script"
+          fi
+
+      # ---------- DONE ----------
+      - name: CI completed
+        run: echo "Backend and Frontend CI run completed successfully"
